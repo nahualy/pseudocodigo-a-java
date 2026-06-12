@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prácticas de Karla Arocha</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            margin: 0;
+        }
+        #pantalla {
+            background-color: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            min-height: 400px;
+            white-space: pre-wrap;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .mensaje {
+            margin: 5px 0;
+        }
+        button {
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover {
+            background-color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="pantalla"></div>
+    <div id="controles"></div>
+
+    <script>
+        // Función auxiliar para mostrar mensajes en la pantalla
+        function mostrarMensaje(texto) {
+            const pantalla = document.getElementById('pantalla');
+            pantalla.innerHTML += texto + '<br>';
+        }
+
+        // Función para limpiar la pantalla
+        function limpiarPantalla() {
+            document.getElementById('pantalla').innerHTML = '';
+        }
+
+        // Función para mostrar botón de volver al menú
+        function mostrarBotonMenu() {
+            const controles = document.getElementById('controles');
+            controles.innerHTML = '<button onclick="menuPrincipal()">Volver al Menú Principal</button>';
+        }
+
+        function ejecutarPractica1() {
+            limpiarPantalla();
+            document.getElementById('controles').innerHTML = '';
+            
+            // 1. Entradas
+            let salarioBase = parseFloat(prompt("A continuación, ingrese su salario Actual y presione Enter"));
+            let ServiceYears = parseInt(prompt("Ingrese los años de servicio y presione Enter"));
+            let CodArea = prompt("Ingrese el código de área y presione Enter");
+            
+            // Variables auxiliares
+            let clasificacion = ""; 
+            let aumento = 0;
+            let salarioFinal = 0;
+
+            // 2. Mensajes de bienvenida
+            mostrarMensaje("----------------------------------------------");
+            mostrarMensaje("             CALIFICACIÓN SALARIAL");
+            mostrarMensaje("----------------------------------------------");
+            mostrarMensaje("Bienvenido al sistema de calificación salarial EDTecnica!");
+            mostrarMensaje(" ");
+
+            // 3. Cálculo del aumento 
+            if (ServiceYears >= 10) {
+                aumento = salarioBase * 0.15;
+            } else if (ServiceYears >= 5) {
+                aumento = salarioBase * 0.10;
+            } else {
+                aumento = salarioBase * 0.05;
+            }
+
+            // 4. Clasificación de desempeño
+            switch (CodArea) {
+                case 'A':
+                case 'a':
+                    clasificacion = "Excelente Desempeño";
+                    break;
+                case 'B':
+                case 'b':
+                    clasificacion = "Buen Desempeño";
+                    break;
+                case 'C':
+                case 'c':
+                    clasificacion = "Desempeño Regular";
+                    break;
+                default:
+                    clasificacion = "Código Inválido";
+            }
+
+            // 5. Cálculo final y salida de resultados
+            salarioFinal = salarioBase + aumento;
+
+            mostrarMensaje("----------------------------------------------");
+            mostrarMensaje("                 RESULTADOS ");
+            mostrarMensaje("----------------------------------------------");
+            mostrarMensaje(" ");
+            mostrarMensaje("     Su salario Final es: " + salarioFinal);
+            mostrarMensaje(" ");
+            mostrarMensaje("     La Clasificación es: " + clasificacion);
+            
+            mostrarBotonMenu();
+        }
+
+        function ejecutarPractica2() {
+            limpiarPantalla();
+            document.getElementById('controles').innerHTML = '';
+            
+            // 1. Declaramos las variables
+            let contrasena = "Clave2025";
+            let entrada = "";
+            let contador = 0;
+
+            // 2. Mostramos el ASCII Art
+            mostrarMensaje("  ____  _                               _     _       ");
+            mostrarMensaje(" |  _ \\(_)                             (_)   | |      ");
+            mostrarMensaje(" | |_) |_  ___ _ ____   _____ _ __  _  __| | ___  ");
+            mostrarMensaje(" |  _ <| |/ _ \\  _ \\ \\ / / _ \\  _ \\| |/ _` |/ _ \\ ");
+            mostrarMensaje(" | |_) | |  __/ | | \\ V /  __/ | | | | (_| | (_) |");
+            mostrarMensaje(" |____/|_|\\___|_| |_|\\_/ \\___|_| |_|_|\\__,_|\\___/ ");
+            mostrarMensaje(" ");
+
+            // 3. Simulamos el "Esperar Tecla"
+            prompt("Presione Enter para continuar...");
+            limpiarPantalla();
+
+            // 4. Mensaje de bienvenida al login
+            mostrarMensaje("**********************************************");
+            mostrarMensaje("*      BIENVENIDO, INGRESE SU CLAVE          *");
+            mostrarMensaje("**********************************************");
+
+            // 5. El bucle de los intentos
+            do {
+                entrada = prompt("Ingrese su contraseña:");
+            
+                if (entrada === contrasena) {
+                    limpiarPantalla();
+                    mostrarMensaje("*********************************");
+                    mostrarMensaje("*      INGRESO EXITOSO          *");
+                    mostrarMensaje("*********************************");
+                    contador = 3;
+                } else {
+                    mostrarMensaje("***************************************************");
+                    mostrarMensaje("*      ACCESO DENEGADO, INTENTE NUEVAMENTE        *");
+                    mostrarMensaje("***************************************************");
+                    contador++;
+                }
+            } while (contador < 3);
+
+            // 6. Verificación final después del bucle
+            if (entrada !== contrasena && contador >= 3) {
+                limpiarPantalla();
+                mostrarMensaje("*****************************************************");
+                mostrarMensaje("*      CUENTA BLOQUEADA, INTENTOS AGOTADOS          *");
+                mostrarMensaje("*****************************************************");
+            }
+            
+            mostrarBotonMenu();
+        }
+
+        function menuPrincipal() {
+    limpiarPantalla();
+    document.getElementById('controles').innerHTML = '';
+    
+    let opcion = "";
+
+    do {
+        // El menú completo va DENTRO del prompt
+        opcion = prompt(
+            "═══════════════════════════════════════════════\n" +
+            "         🎓 MENÚ PRINCIPAL 🎓                  \n" +
+            "═══════════════════════════════════════════════\n" +
+            "                                               \n" +
+            "     1. Práctica 1 - Calificación Salarial    \n" +
+            "                                               \n" +
+            "     2. Práctica 2 - Sistema de Login         \n" +
+            "                                               \n" +
+            "     3. Salir                                 \n" +
+            "                                               \n" +
+            "═══════════════════════════════════════════════\n" +
+            "\n Elige una opción (1, 2 o 3):"
+        );
+
+        switch (opcion) {
+            case "1":
+                ejecutarPractica1();
+                return;
+            case "2":
+                ejecutarPractica2();
+                return;
+            case "3":
+                limpiarPantalla();
+                mostrarMensaje("\n════════════════════════════════════════════    ");
+                mostrarMensaje("    ¡Gracias por usar el programa!            ");
+                mostrarMensaje("           Hasta luego!                      ");
+                mostrarMensaje("══════════════════════════════════════════════  \n");
+                break;
+            default:
+                limpiarPantalla();
+                mostrarMensaje("\n ═════════════════════════════════════════════   ");
+                mostrarMensaje("   ⚠️  OPCIÓN NO VÁLIDA                          ");
+                mostrarMensaje(" ══════════════════════════════════════════════  ");
+                mostrarMensaje("   Por favor, elige 1, 2 o 3                     ");
+                mostrarMensaje(" ═══════════════════════════════════════════════ \n");
+        }
+    } while (opcion !== "3");
+}
+
+        // Arrancamos el programa
+        menuPrincipal();
+    </script>
+
+</body>
+</htm
